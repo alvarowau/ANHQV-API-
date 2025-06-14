@@ -1,4 +1,4 @@
-package com.anhqv.apartmentService;
+package com.anhqv.apartmentservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,4 +1,4 @@
-package com.anhqv.apartmentService;
+package com.anhqv.apartmentservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
