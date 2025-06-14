@@ -49,4 +49,6 @@ public class CharacterEntity implements Serializable {
     @Column(nullable = true, length = 200)
     private String actorName;
 
+    private boolean isActive;
+
 }

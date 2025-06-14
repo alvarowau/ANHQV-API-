@@ -1,6 +1,7 @@
 package com.anhqv.characterservice.service;
 
 import com.anhqv.characterservice.dto.CharacterRequestDTO;
+import com.anhqv.characterservice.dto.CharacterRequestUpdateDTO;
 import com.anhqv.characterservice.dto.CharacterResponseDTO;
 import com.anhqv.characterservice.dto.CharacterPreviewDTO;
 import com.anhqv.characterservice.exception.CharacterNotFoundException;
@@ -37,7 +38,7 @@ public interface CharacterService {
      * @return El CharacterResponseDTO del personaje actualizado.
      * @throws CharacterNotFoundException Si no se encuentra el personaje con el ID dado.
      */
-    CharacterResponseDTO updateCharacter(Long id, CharacterRequestDTO requestDTO) throws CharacterNotFoundException;
+    CharacterResponseDTO updateCharacter(Long id, CharacterRequestUpdateDTO requestDTO) throws CharacterNotFoundException;
 
     /**
      * Elimina un personaje por su ID.
@@ -46,7 +47,17 @@ public interface CharacterService {
      */
     void deleteCharacter(Long id) throws CharacterNotFoundException;
 
-    // Métodos adicionales que podríamos considerar más adelante si son necesarios para el MVP o versiones futuras:
-    // List<CharacterPreviewDTO> searchCharacters(String name, String surname); // Para búsqueda por nombre/apellido
-    // Long countCharacters(); // Para saber el número total de personajes
+    /**
+     * Obtiene una lista de todos los personajes activados.
+     * @return Lista de CharacterPreviewDTO con personajes activos.
+     */
+    List<CharacterPreviewDTO> getAllActiveCharacters();
+
+    /**
+     * Obtiene un personaje activado por su ID.
+     * @param id ID del personaje.
+     * @return CharacterResponseDTO si está activado.
+     * @throws CharacterNotFoundException Si no existe o no está activado.
+     */
+    CharacterResponseDTO getActiveCharacterById(Long id) throws CharacterNotFoundException;
 }
