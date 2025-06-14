@@ -58,6 +58,7 @@ public class CharacterServiceImpl implements CharacterService {
 
 
     @Override
+    @Deprecated
     public void deleteCharacter(Long id) throws CharacterNotFoundException {
         Optional<CharacterEntity> characterEntity = characterRepository.findByIdAndIsActiveTrue(id);
         if (characterEntity.isEmpty()) {
@@ -66,6 +67,23 @@ public class CharacterServiceImpl implements CharacterService {
         CharacterEntity entity = characterEntity.get();
         entity.setActive(false);
         characterRepository.save(entity);
+    }
+
+    @Override
+    public CharacterResponseDTO updateCharacterActivationStatus(Long id, boolean isActive) throws CharacterNotFoundException {
+        Optional<CharacterEntity> characterEntity = characterRepository.findById(id);
+        if (characterEntity.isEmpty()) {
+            throw new CharacterNotFoundException("El character no existe");
+        }
+        CharacterEntity entity = characterEntity.get();
+        if (entity.isActive() == isActive) {
+            String message = isActive ? "El personaje ya esta activo" : "El personaje ya esta desactivado";
+            throw new CharacterNotFoundException(message);
+        }
+        entity.setActive(isActive);
+        CharacterEntity entityUpdate = characterRepository.save(entity);
+        return CharacterMapper.toResponse(entityUpdate);
+
     }
 
     @Override

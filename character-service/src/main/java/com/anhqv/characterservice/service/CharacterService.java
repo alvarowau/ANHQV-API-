@@ -1,9 +1,9 @@
 package com.anhqv.characterservice.service;
 
+import com.anhqv.characterservice.dto.CharacterPreviewDTO;
 import com.anhqv.characterservice.dto.CharacterRequestDTO;
 import com.anhqv.characterservice.dto.CharacterRequestUpdateDTO;
 import com.anhqv.characterservice.dto.CharacterResponseDTO;
-import com.anhqv.characterservice.dto.CharacterPreviewDTO;
 import com.anhqv.characterservice.exception.CharacterNotFoundException;
 
 import java.util.List;
@@ -45,7 +45,18 @@ public interface CharacterService {
      * @param id El ID del personaje a eliminar.
      * @throws CharacterNotFoundException Si no se encuentra el personaje con el ID dado.
      */
+    @Deprecated
     void deleteCharacter(Long id) throws CharacterNotFoundException;
+
+    /**
+     * Actualiza el estado de activación (activo/inactivo) de un personaje.
+     *
+     * @param id       El ID del personaje.
+     * @param isActive El nuevo estado (true para activar, false para desactivar).
+     * @return El CharacterResponseDTO del personaje con el estado actualizado.
+     * @throws CharacterNotFoundException Si no se encuentra el personaje con el ID dado.
+     */
+    CharacterResponseDTO updateCharacterActivationStatus(Long id, boolean isActive) throws CharacterNotFoundException;
 
     /**
      * Obtiene una lista de todos los personajes activados.
