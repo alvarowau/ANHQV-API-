@@ -1,0 +1,34 @@
+server:
+  port: 8080 # Puerto por defecto para el Gateway
+
+spring:
+  application:
+    name: anqhv-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+
+        - id: personajes-service-route
+          uri: lb://ANQHV-PERSONAJES-SERVICE
+          predicates:
+            - Path=/api/personajes/**
+
+        - id: frases-service-route
+          uri: lb://ANQHV-FRASES-SERVICE
+          predicates:
+            - Path=/api/frases/**
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:9000/oauth2/jwks
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
