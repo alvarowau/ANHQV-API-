@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: anhqv-character-db
+    restart: always
+    environment:
+      POSTGRES_DB: anhqv_character_db
+      POSTGRES_USER: anhqv_user
+      POSTGRES_PASSWORD: anhqv_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U anhqv_user -d anhqv_character_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  db_data:
