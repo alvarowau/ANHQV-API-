@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-
     @ExceptionHandler(CharacterNotFoundException.class)
     public ResponseEntity<ApiError> handleCharacterNotFoundException(
             CharacterNotFoundException ex, WebRequest request) {
@@ -31,6 +30,33 @@ public class GlobalExceptionHandler {
         );
     }
 
+    @ExceptionHandler(CharacterConflictException.class)
+    public ResponseEntity<ApiError> handleCharacterConflictException(
+            CharacterConflictException ex, WebRequest request) {
+
+        List<String> details = List.of(ex.getMessage());
+
+        return createResponse(
+                request,
+                HttpStatus.CONFLICT,
+                ex.getMessage(),
+                details
+        );
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<ApiError> handleBadRequestException(
+            BadRequestException ex, WebRequest request) {
+
+        List<String> details = List.of(ex.getMessage());
+
+        return createResponse(
+                request,
+                HttpStatus.BAD_REQUEST,
+                ex.getMessage(),
+                details
+        );
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiError> handleMethodArgumentNotValid(
@@ -50,7 +76,6 @@ public class GlobalExceptionHandler {
         );
     }
 
-
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiError> handleGenericException(
             Exception ex, WebRequest request) {
@@ -64,7 +89,6 @@ public class GlobalExceptionHandler {
                 details
         );
     }
-
 
     private ResponseEntity<ApiError> createResponse(WebRequest request, HttpStatus status, String message, List<String> details) {
         String path = "";

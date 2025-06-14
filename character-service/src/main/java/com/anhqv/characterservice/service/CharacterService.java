@@ -4,6 +4,7 @@ import com.anhqv.characterservice.dto.CharacterPreviewDTO;
 import com.anhqv.characterservice.dto.CharacterRequestDTO;
 import com.anhqv.characterservice.dto.CharacterRequestUpdateDTO;
 import com.anhqv.characterservice.dto.CharacterResponseDTO;
+import com.anhqv.characterservice.exception.CharacterConflictException;
 import com.anhqv.characterservice.exception.CharacterNotFoundException;
 
 import java.util.List;
@@ -56,7 +57,7 @@ public interface CharacterService {
      * @return El CharacterResponseDTO del personaje con el estado actualizado.
      * @throws CharacterNotFoundException Si no se encuentra el personaje con el ID dado.
      */
-    CharacterResponseDTO updateCharacterActivationStatus(Long id, boolean isActive) throws CharacterNotFoundException;
+    CharacterResponseDTO updateCharacterActivationStatus(Long id, boolean isActive) throws CharacterNotFoundException, CharacterConflictException;
 
     /**
      * Obtiene una lista de todos los personajes activados.
