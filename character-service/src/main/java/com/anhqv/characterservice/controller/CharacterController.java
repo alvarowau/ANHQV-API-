@@ -6,6 +6,7 @@ import com.anhqv.characterservice.dto.CharacterRequestUpdateDTO;
 import com.anhqv.characterservice.dto.CharacterResponseDTO;
 import com.anhqv.characterservice.service.CharacterService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
@@ -27,7 +28,7 @@ public class CharacterController {
      */
     @PostMapping
     public ResponseEntity<CharacterResponseDTO> createCharacter(@Valid @RequestBody CharacterRequestDTO requestDTO) {
-        return null;
+        return ResponseEntity.status(HttpStatus.CREATED).body(characterService.createCharacter(requestDTO));
     }
 
     /**
@@ -38,7 +39,7 @@ public class CharacterController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<CharacterResponseDTO> getCharacterById(@PathVariable Long id) {
-        return null;
+        return ResponseEntity.ok(characterService.getCharacterById(id));
     }
 
     /**
@@ -48,7 +49,7 @@ public class CharacterController {
      */
     @GetMapping
     public ResponseEntity<List<CharacterPreviewDTO>> getAllCharacters() {
-        return null;
+        return ResponseEntity.ok(characterService.getAllCharacters());
     }
 
     /**
@@ -58,7 +59,7 @@ public class CharacterController {
      */
     @GetMapping("/active")
     public ResponseEntity<List<CharacterPreviewDTO>> getAllActiveCharacters() {
-        return null;
+        return ResponseEntity.ok(characterService.getAllActiveCharacters());
     }
 
     /**
@@ -69,7 +70,7 @@ public class CharacterController {
      */
     @GetMapping("/active/{id}")
     public ResponseEntity<CharacterResponseDTO> getActiveCharacterById(@PathVariable Long id) {
-        return null;
+        return ResponseEntity.ok(characterService.getActiveCharacterById(id));
     }
 
     /**
@@ -81,7 +82,7 @@ public class CharacterController {
      */
     @PutMapping("/{id}")
     public ResponseEntity<CharacterResponseDTO> updateCharacter(@PathVariable Long id, @Valid @RequestBody CharacterRequestUpdateDTO requestDTO) {
-        return null;
+        return ResponseEntity.ok(characterService.updateCharacter(id,requestDTO));
     }
 
     /**
@@ -92,6 +93,7 @@ public class CharacterController {
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deactivateCharacter(@PathVariable Long id) {
+        characterService.updateCharacterActivationStatus(id,false);
         return ResponseEntity.noContent().build();
     }
 
@@ -103,6 +105,6 @@ public class CharacterController {
      */
     @PutMapping("/{id}/activate")
     public ResponseEntity<CharacterResponseDTO> activateCharacter(@PathVariable Long id) {
-        return null;
+        return ResponseEntity.ok(characterService.updateCharacterActivationStatus(id,true));
     }
 }
