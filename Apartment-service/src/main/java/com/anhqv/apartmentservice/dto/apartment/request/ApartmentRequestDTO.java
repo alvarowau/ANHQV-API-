@@ -1,4 +1,4 @@
-package com.anhqv.apartmentservice.dto.apartment;
+package com.anhqv.apartmentservice.dto.apartment.request;
 
 import com.anhqv.apartmentservice.model.PropertyType;
 

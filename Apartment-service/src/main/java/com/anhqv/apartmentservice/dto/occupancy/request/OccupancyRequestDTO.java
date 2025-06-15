@@ -1,4 +1,4 @@
-package com.anhqv.apartmentservice.dto.occupancy;
+package com.anhqv.apartmentservice.dto.occupancy.request;
 
 import com.anhqv.apartmentservice.model.OccupancyType;
 
